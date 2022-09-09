@@ -20,11 +20,12 @@ npm start
 
 ## Cautions before you start this project
 
-- 모든 작업은 src/ 폴더 아래에서 할것: dist/ 폴더는 _npm start_ 를 실행하면 자동으로 생성된다
+- 모든 작업은 src/ 폴더 아래에서 할것: _npm start_ 하면 src/index.ts 를 src/index.html에 알아서 연결해준다
 - Script 파일의 root 는 src/index.ts 이므로, script 파일을 사용하기 위해선 반드시 src/index.ts 에 **import** 할것
 - CDN link 는 사용하지 말고 반드시 npmjs 사이트에서 찾아 install 할것
 - Script 파일은 dist/index.html에 Webpack 이 알아서 넣어주므로 src/index.html 에 script 파일을 넣지 말것
 - Fetch API 를 쓸것
+- 현재는 Single page 를 기반으로 Webpack을 설정했다: 멀티 페이지를 생각하고 있다면 [여기](https://webpack.kr/concepts/entry-points/#multi-page-application)를 참조해보자
 
 ## Goals
 

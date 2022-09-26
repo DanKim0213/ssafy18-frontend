@@ -1,13 +1,59 @@
-/** root ts file */
-import _ from 'lodash';
-import sayHi, {sayHiToSomeone} from './another';
+import "./style.css";
+import data from './data/data.json';
 
-const array = [1, 2, 3];
-_.fill(array, 'a');
-console.log(array);
-// => ['a', 'a', 'a']
+const { items } = JSON.parse(data);
+console.log('item1 is', items[0]);
+console.log('item2 is', items[2]);
 
-// b 변수 선언되었지만 쓰이지 않았다
-const b = 0; 
-sayHi();
-sayHiToSomeone("주희, 준석, 상기, 태원");
+// Fetch the items from the JSON file
+// function loadItems() {
+//   return fetch('./data/data.json')
+//     .then(response => response.json())
+//     .then(json => json.items);
+// }
+
+// Update the list with the given items
+function displayItems(items: any[]) {
+  const container = document.querySelector('.items') as HTMLUListElement;
+  container.innerHTML = items.map((item: any) => createHTMLString(item)).join('');
+}
+
+// Create HTML list item from the given data item
+function createHTMLString(item: any) {
+  return `
+    <li class="item">
+        <img src="${item.image}" alt="${item.type}" class="item__thumbnail" />
+        <span class="item__description">${item.gender}, ${item.size}</span>
+    </li>
+    `;
+}
+
+function onButtonClick(event: any, items: any) {
+  const dataset = event.target.dataset;
+  const key = dataset.key;
+  const value = dataset.value;
+
+  if (key == null || value == null) {
+    return;
+  }
+
+  displayItems(items.filter((item: any) => item[key] === value));
+}
+
+function setEventListeners(items: any) {
+  const logo = document.querySelector('.logo') as HTMLImageElement;
+  const buttons = document.querySelector('.buttons') as HTMLElement;
+  logo.addEventListener('click', () => displayItems(items));
+  buttons.addEventListener('click', event => onButtonClick(event, items));
+}
+
+// main
+displayItems(items);
+setEventListeners(items);
+// loadItems()
+//   .then(items => {
+//     displayItems(items);
+//     setEventListeners(items);
+//   })
+//   .catch(console.log);
+

@@ -15,6 +15,26 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+          },
+        ],
+      },
+      {
+        test: /\.json/,
+        type: "asset/source",
+      },
     ],
   },
   resolve: {
@@ -29,7 +49,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    clean: true,
+    clean: process.env.NODE_ENV === "production",
   },
   plugins: [
     new HtmlWebpackPlugin({
